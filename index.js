@@ -1,23 +1,39 @@
 // Дан объект с городами и странами. Вывести масив значения в котором
 // будут строки преобразованные в данный формат: <Столица> - это <Страна>.
 
+// Вариант 1 - через свой счетчик
+// const citiesAndCountries = {
+// 	'Киев': 'Украина',
+// 	'Нью-Йорк': 'США',
+// 	'Амстердам': 'Нидерланды',
+// 	'Берлин': 'Германия',
+// 	'Париж': 'Франция',
+// 	'Лиссабон': 'Португалия',
+// 	'Вена': 'Австрия',
+// };
+// let transformCityCountry = [];
+// let i = 0;
+// for (const key in citiesAndCountries) {
+//     transformCityCountry[i] = key + ' - это ' + citiesAndCountries[key];
+//     i++;
+// }
+// console.log(transformCityCountry);
+
+// Вариант 2 - через .push
 const citiesAndCountries = {
-	'Киев': 'Украина',
-	'Нью-Йорк': 'США',
-	'Амстердам': 'Нидерланды',
-	'Берлин': 'Германия',
-	'Париж': 'Франция',
-	'Лиссабон': 'Португалия',
-	'Вена': 'Австрия',
+    'Киев': 'Украина',
+    'Нью-Йорк': 'США',
+    'Амстердам': 'Нидерланды',
+    'Берлин': 'Германия',
+    'Париж': 'Франция',
+    'Лиссабон': 'Португалия',
+    'Вена': 'Австрия',
 };
-let transformCityCountry = [];
-let i = 0;
+const transformCityCountry = [];
 for (const key in citiesAndCountries) {
-    transformCityCountry[i] = key + ' - это ' + citiesAndCountries[key];
-    i++;
+    transformCityCountry.push(key + ' - это ' + citiesAndCountries[key]);
 }
-const result = transformCityCountry;
-console.log(result);
+console.log(transformCityCountry);
 
 // Создать функцию которая выведет многомерный массив A. Данный массив содержит 
 // в себе список других массивов B. Массивы B должны содержать по 3 значения. 
@@ -56,11 +72,29 @@ getNameOfDay();
 // из массива минимум 4 положительных целых чисел. Не передаются числа с плавающей 
 // запятой или неположительные целые числа.
 
-let arrayPositiveInteger = [19, 5, 42, 2, 77];
+// Вариант 1 - через .sort
+// let arrayPositiveInteger = [19, 5, 77, 2, 42];
+// function getSumTwoMin() {
+//     arrayPositiveInteger.sort(function(a, b) {
+//         return a - b;
+//     })
+//     return arrayPositiveInteger[0] + arrayPositiveInteger[1];
+// }
+// console.log(getSumTwoMin());
+
+// Вариант 2 - своя сортировка
+let arrayPositiveInteger = [19, 5, 77, 2, 42];
 function getSumTwoMin() {
-    arrayPositiveInteger.sort(function(a, b) {
-        return a - b;
-    })
+    for (let i = arrayPositiveInteger.length - 1; i > 0; i--) {
+        for (let j = 1; j <= i; j++) {
+            if (arrayPositiveInteger[i] < arrayPositiveInteger[i-j]) {
+                let k = arrayPositiveInteger[i-j];
+                arrayPositiveInteger[i-j] = arrayPositiveInteger[i];
+                arrayPositiveInteger[i] = k;
+            }
+            // console.log(arrayPositiveInteger)
+        }
+    }
     return arrayPositiveInteger[0] + arrayPositiveInteger[1];
 }
 console.log(getSumTwoMin());
